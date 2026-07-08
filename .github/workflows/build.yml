@@ -1,26 +1,23 @@
-name: Build Android APK
+name: Build Android App
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
-
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Build with Buildozer
-      uses: ArtemSvetlov/buildozer-action@v1
-      with:
-        command: buildozer -v android debug
-        subfolder: .
-
-    - name: Upload APK
-      uses: actions/upload-artifact@v3
-      with:
-        name: android-app
-        path: bin/*.apk
-```http://googleusercontent.com/image_generation_content/279
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Buildozer
+        uses: ArtemSvetlov/buildozer-action@v1
+        with:
+          command: buildozer -v android debug
+          subfolder: .
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-app
+          path: bin/*.apk
